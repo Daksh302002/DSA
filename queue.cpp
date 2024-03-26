@@ -11,7 +11,7 @@ private:
 public:
     bool isEmpty()
     {
-        if (front == -1 && rare == -1)
+        if (front == -1 || front > rare)
         {
             return true;
         }
@@ -33,15 +33,11 @@ public:
         {
             cout << "Queue Underflow " << endl;
         }
-        else if (isEmpty())
-        {
-            front = rare = 0;
-        }
-        else
-        {
-            rare++;
-        }
+        rare++;
         arr[rare] = val;
+
+        if (front == -1)
+            front++;
     }
 
     void dequeue()
@@ -49,10 +45,6 @@ public:
         if (isEmpty())
         {
             cout << "Queue Overflow " << endl;
-        }
-        else if (front == rare)
-        {
-            front = rare = -1;
         }
         else
         {
@@ -80,7 +72,9 @@ int main()
     q.enqueue(3);
     q.dequeue();
     q.dequeue();
-    q.display(); 
+    q.dequeue();
+    q.dequeue();
+    // q.display();
 
     return 0;
 }
